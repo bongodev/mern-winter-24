@@ -12,11 +12,14 @@ const ProductSchema = new mongoose.Schema(
     madeIn: {
       type: String,
     },
-    category: {
-      type: String,
-    },
+    categories: [{ type: String }],
     price: {
       type: Number,
+      default: 0,
+    },
+    quantity: {
+      type: Number,
+      default: 0,
     },
     userId: {
       type: mongoose.Schema.Types.ObjectId,
