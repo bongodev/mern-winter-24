@@ -1,15 +1,18 @@
-import * as dotenv from 'dotenv';
-dotenv.config();
-
 import express from 'express';
 import bodyParser from 'body-parser';
 import cors from 'cors';
 
+import { config } from './config.js';
+import { connectDB } from './db.js';
+
 const app = express();
-const PORT = process.env.PORT || 5000;
+
+const PORT = config.PORT;
 
 app.use(bodyParser.json());
 app.use(cors());
+
+connectDB();
 
 // In-memory array to store products
 let products = [
