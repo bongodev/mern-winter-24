@@ -4,6 +4,7 @@ import cors from 'cors';
 
 import { config } from './config.js';
 import { connectDB } from './db.js';
+import { configureRoutes } from './routes/index.js';
 
 const app = express();
 
@@ -13,6 +14,8 @@ app.use(bodyParser.json());
 app.use(cors());
 
 connectDB();
+
+configureRoutes(app);
 
 // In-memory array to store products
 let products = [
