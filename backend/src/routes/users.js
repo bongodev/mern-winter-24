@@ -5,6 +5,7 @@ import { userServices } from '../services/index.js';
 
 const router = express.Router();
 
+// create user
 router.post(
   '/',
   [
