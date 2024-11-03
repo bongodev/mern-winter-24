@@ -3,16 +3,14 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
 
-import { userServices } from '../api/services';
+import { authServices } from '../api/services';
 
-export const SignUpPage = () => {
+export const LoginPage = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    fname: '',
-    lname: '',
+    type: 'email',
     email: '',
     password: '',
-    userType: 'customer', // Default user type
   });
 
   const handleChange = (e) => {
@@ -21,40 +19,23 @@ export const SignUpPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // TO DO email verification
-    userServices
-      .createUser(formData)
-      .then(() => navigate('/login'))
+    authServices
+      .login(formData)
+      .then(({ data }) => {
+        authServices.saveUserSession(data);
+        navigate('/');
+      })
       .catch((err) => {
-        alert('Failed to sing-up');
-        console.error(err);
+        alert(err.response.data.message || 'Login failed');
       });
   };
 
   return (
     <Container maxWidth="xs" sx={{ mt: 5 }}>
       <Typography variant="h4" component="h1" align="center" gutterBottom>
-        Sign Up - Simple E-Commerce
+        Login - Simple E-Commerce
       </Typography>
       <Box component="form" onSubmit={handleSubmit} sx={{ mt: 3 }}>
-        <TextField
-          fullWidth
-          label="First Name"
-          name="fname"
-          value={formData.fname}
-          onChange={handleChange}
-          required
-          margin="normal"
-        />
-        <TextField
-          fullWidth
-          label="Last Name"
-          name="lname"
-          value={formData.lname}
-          onChange={handleChange}
-          required
-          margin="normal"
-        />
         <TextField
           fullWidth
           label="Email"
@@ -82,16 +63,16 @@ export const SignUpPage = () => {
           type="submit"
           sx={{ mt: 3 }}
         >
-          Sign Up
+          Login
         </Button>
         <Button
           fullWidth
           variant="contained"
           color="primary"
-          onClick={() => navigate('/login')}
+          onClick={() => navigate('/signup')}
           sx={{ mt: 3 }}
         >
-          Login
+          Sign Up
         </Button>
       </Box>
     </Container>
