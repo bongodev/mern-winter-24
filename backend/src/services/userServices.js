@@ -10,7 +10,7 @@ export const createUser = async ({ userPayload }) => {
     lname: userPayload.lname,
     email: userPayload.email,
     password: hash,
-    userType: userPayload.userType,
+    userType: 'customer',
   };
   const user = new User(userObj);
   await user.save();
