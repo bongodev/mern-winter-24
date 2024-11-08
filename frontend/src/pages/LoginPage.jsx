@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 
 import { Container, Typography, TextField, Button, Box } from '@mui/material';
 
-import { authServices } from '../api/services';
+import { authServices } from '../common/auth';
 
 export const LoginPage = () => {
   const navigate = useNavigate();
@@ -21,10 +21,7 @@ export const LoginPage = () => {
     e.preventDefault();
     authServices
       .login(formData)
-      .then(({ data }) => {
-        authServices.saveUserSession(data);
-        navigate('/');
-      })
+      .then(() => navigate('/'))
       .catch((err) => {
         alert(err.response.data.message || 'Login failed');
       });

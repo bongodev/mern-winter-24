@@ -1,4 +1,4 @@
-import { authServices } from '../services';
+import { authServices } from '../../common/auth';
 
 export const useUserSession = () => {
   const userSession = authServices.getUserSessionObject();
