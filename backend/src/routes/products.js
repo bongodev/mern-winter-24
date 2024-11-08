@@ -108,7 +108,7 @@ router.get('/products', (req, res) => {
   if (!filters.length) {
     res.json(products);
   }
-  res.json(
+  return res.json(
     products.filter((product) =>
       product.categories.some((category) =>
         filters.includes(category.toLowerCase())
