@@ -4,6 +4,7 @@ import { DataGrid } from '@mui/x-data-grid';
 
 import { useProductsLegacy } from '../../api/hooks/useProductsLegacy';
 import { ProductForm } from './ProductForm';
+import { useProducts } from '../../api/hooks';
 
 const productPlaceholder = {
   id: '',
@@ -15,8 +16,8 @@ const productPlaceholder = {
 };
 
 export const ProductDashboard = () => {
-  const { isLoading, products, addOrUpdateProduct, refreshProducts } =
-    useProductsLegacy();
+  const { isLoading, products } = useProducts();
+  const { addOrUpdateProduct, refreshProducts } = useProductsLegacy();
   const [openForm, setOpenForm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(productPlaceholder);
 
