@@ -1,10 +1,7 @@
 import { http } from '../../common/http';
 
-export const getProducts = async (categories) => {
-  const query = categories
-    .map((category) => `category=${category.toLowerCase()}`)
-    .join('&');
-  const res = await http.get(`/api/products?${query}`);
+export const getProducts = async (queries) => {
+  const res = await http.get(`/api/products?${queries}`);
   return res.data;
 };
 
