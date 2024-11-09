@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Box, Button, Drawer } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
-import { useProducts } from '../../api/hooks/useProducts';
+import { useProductsLegacy } from '../../api/hooks/useProductsLegacy';
 import { ProductForm } from './ProductForm';
 
 const productPlaceholder = {
@@ -16,7 +16,7 @@ const productPlaceholder = {
 
 export const ProductDashboard = () => {
   const { isLoading, products, addOrUpdateProduct, refreshProducts } =
-    useProducts();
+    useProductsLegacy();
   const [openForm, setOpenForm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(productPlaceholder);
 

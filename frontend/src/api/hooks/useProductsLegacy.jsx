@@ -1,7 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { addProduct, getProducts, updateProduct } from '../services';
 
-export function useProducts() {
+export function useProductsLegacy() {
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const [products, setProducts] = useState([]);

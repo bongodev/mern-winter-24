@@ -1,4 +1,4 @@
-import { useProducts } from '../../api/hooks';
+import { useProductsLegacy } from '../../api/hooks';
 
 import { ProductGrid } from '../product';
 import { FilterSection } from './FilterSection';
@@ -10,7 +10,7 @@ export function LeftPanel() {
     products,
     selectedCategories,
     setSelectedCategories,
-  } = useProducts();
+  } = useProductsLegacy();
 
   const updateFilters = (category) => {
     if (selectedCategories.includes(category)) {
