@@ -84,15 +84,6 @@ export const SignUpPage = () => {
         >
           Sign Up
         </Button>
-        <Button
-          fullWidth
-          variant="contained"
-          color="primary"
-          onClick={() => navigate('/login')}
-          sx={{ mt: 3 }}
-        >
-          Login
-        </Button>
       </Box>
     </Container>
   );
