@@ -1,32 +1,11 @@
 import express from 'express';
-import { body } from 'express-validator';
 
-import { productServices } from '../services/index.js';
+import { productController } from '../controllers/index.js';
 
 const router = express.Router();
 
-router.post(
-  '/v2/products',
-  [
-    body('name', 'name is required').notEmpty(),
-    body('price', 'price is required').notEmpty(),
-    body('price', 'price must be numeric').isNumeric(),
-    body('quantity', 'quantity is required').notEmpty(),
-    body('quantity', 'quantity must be numeric').isNumeric(),
-  ],
-  async (req, res) => {
-    try {
-      const product = await productServices.createProduct({
-        productPayload: req.body,
-      });
-      res.status(201).json(product);
-    } catch (error) {
-      res
-        .status(400)
-        .json({ message: error.message || 'Product creation failed' });
-    }
-  }
-);
+router.post('/products', productController.createProduct);
+router.get('/products', productController.getProducts);
 
 // In-memory array to store products
 let products = [
@@ -96,47 +75,11 @@ let products = [
   },
 ];
 
-// Get all products
-router.get('/products', (req, res) => {
-  const { category } = req.query;
-  let filters = [];
-  if (typeof category === 'string') {
-    filters = [category.toLowerCase()];
-  } else if (Array.isArray(category) && category.length) {
-    filters = category.map((category) => category.toLowerCase());
-  }
-  if (!filters.length) {
-    res.json(products);
-  }
-  return res.json(
-    products.filter((product) =>
-      product.categories.some((category) =>
-        filters.includes(category.toLowerCase())
-      )
-    )
-  );
-});
-
 // Get a product by ID
 router.get('/products/:id', (req, res) => {
   const product = products.find((p) => p.id === parseInt(req.params.id));
   if (!product) return res.status(404).json({ message: 'Product not found' });
   res.json(product);
-});
-
-// Create a new product
-router.post('/products', (req, res) => {
-  const newProduct = {
-    id: products.length ? products[products.length - 1].id + 1 : 1,
-    name: req.body.name,
-    quantity: req.body.quantity,
-    price: req.body.price,
-    vendor: req.body.vendor,
-    category: req.body.category,
-  };
-
-  products.push(newProduct);
-  res.status(201).json(newProduct);
 });
 
 // Update an existing product
@@ -190,6 +133,5 @@ router.get('/search', (req, res) => {
 
   res.json(filteredProducts);
 });
-
 
 export { router as productRouter };

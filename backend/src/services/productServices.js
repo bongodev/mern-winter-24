@@ -15,3 +15,14 @@ export const createProduct = async ({ productPayload }) => {
   await product.save();
   return product;
 };
+
+export const getProducts = async (filters = []) => {
+  let queries = {};
+  if (filters.length) {
+    queries = {
+      $or: filters.map((filter) => ({ categories: filter })),
+    };
+  }
+  const products = await Product.find(queries);
+  return products;
+};
