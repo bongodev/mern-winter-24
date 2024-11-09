@@ -5,7 +5,7 @@ export const getProducts = async (queries) => {
   return res.data;
 };
 
-export const addProduct = (product) => http.post('/api/v2/products', product);
+export const addProduct = (product) => http.post('/api/products', product);
 
 export const updateProduct = (productId, product) =>
   http.put(`/api/products/${productId}`, product);
