@@ -6,7 +6,6 @@ import {
   AppBar,
   Badge,
   Box,
-  Button,
   IconButton,
   InputBase,
   Menu,
@@ -196,25 +195,13 @@ export const Navbar = () => {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' }, gap: { md: 2 } }}>
+          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
             <Cart />
             <IconButton size="large" color="inherit">
               <Badge badgeContent={17} color="error">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
-
-            <Link to="/signup">
-              <Button color="inherit" variant="outlined">
-                Sign UP
-              </Button>
-            </Link>
-            <Link to="/login">
-              <Button color="inherit" variant="outlined">
-                Login
-              </Button>
-            </Link>
-
             <IconButton
               size="large"
               edge="end"
