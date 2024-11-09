@@ -2,9 +2,8 @@ import React, { useState } from 'react';
 import { Box, Button, Drawer } from '@mui/material';
 import { DataGrid } from '@mui/x-data-grid';
 
-import { useProductsLegacy } from '../../api/hooks/useProductsLegacy';
 import { ProductForm } from './ProductForm';
-import { useProducts } from '../../api/hooks';
+import { useProductMutation, useProducts } from '../../api/hooks';
 
 const productPlaceholder = {
   id: '',
@@ -17,7 +16,7 @@ const productPlaceholder = {
 
 export const ProductDashboard = () => {
   const { isLoading, products } = useProducts();
-  const { addOrUpdateProduct, refreshProducts } = useProductsLegacy();
+  const { productMutation } = useProductMutation();
   const [openForm, setOpenForm] = useState(false);
   const [selectedProduct, setSelectedProduct] = useState(productPlaceholder);
 
@@ -38,10 +37,8 @@ export const ProductDashboard = () => {
       alert('Price can not be less than 10$');
       return;
     }
-    addOrUpdateProduct(product).then(() => {
-      onCloseForm();
-      refreshProducts();
-    });
+    productMutation.mutate(product);
+    onCloseForm();
   };
 
   return (
