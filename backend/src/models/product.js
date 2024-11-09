@@ -36,7 +36,13 @@ const ProductSchema = new mongoose.Schema(
   },
   {
     timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
   }
 );
+
+ProductSchema.virtual('id').get(function () {
+  return this._id.toString();
+});
 
 export const Product = mongoose.model('Product', ProductSchema);
