@@ -1,8 +1,7 @@
 import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 
-import { HomePage, Layout, LoginPage, SignUpPage } from '../pages';
+import { HomePage, Layout, SignUpPage } from '../pages';
 import { DashboardPage } from '../pages/admin';
-import { SecureRoute } from './SecureRoute';
 
 const router = createBrowserRouter([
   {
@@ -18,27 +17,15 @@ const router = createBrowserRouter([
         children: [
           {
             index: true,
-            element: (
-              <SecureRoute>
-                <div>Admin App</div>,
-              </SecureRoute>
-            ),
+            element: <div>Admin App</div>,
           },
           {
             path: 'profile',
-            element: (
-              <SecureRoute>
-                <div>Admin Profile</div>,
-              </SecureRoute>
-            ),
+            element: <div>Admin Profile</div>,
           },
           {
             path: 'dashboard',
-            element: (
-              <SecureRoute>
-                <DashboardPage />,
-              </SecureRoute>
-            ),
+            element: <DashboardPage />,
           },
         ],
       },
@@ -50,7 +37,7 @@ const router = createBrowserRouter([
   },
   {
     path: '/login',
-    element: <LoginPage />,
+    element: <div>Login</div>,
   },
 ]);
 

@@ -14,7 +14,6 @@ import {
   Toolbar,
   Typography,
 } from '@mui/material';
-
 import {
   AccountCircle,
   MenuIcon,
@@ -23,7 +22,6 @@ import {
   SearchIcon,
 } from '../../common/icons';
 import { Cart } from '../cart';
-import { authServices } from '../../api/services';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -96,7 +94,6 @@ export const Navbar = () => {
     navigate(route);
   };
 
-  const isUserLoggedIn = authServices.isUserLoggedIn();
   const menuId = 'primary-search-account-menu';
   const renderMenu = (
     <Menu
@@ -119,15 +116,6 @@ export const Navbar = () => {
       </MenuItem>
       <MenuItem onClick={() => routeToAdmin('/admin/dashboard')}>
         Dashboard
-      </MenuItem>
-
-      <MenuItem
-        onClick={() => {
-          authServices.logout();
-          navigate('/');
-        }}
-      >
-        Logout
       </MenuItem>
     </Menu>
   );
@@ -161,20 +149,18 @@ export const Navbar = () => {
         </IconButton>
         <p>Notifications</p>
       </MenuItem>
-      {isUserLoggedIn && (
-        <MenuItem onClick={handleProfileMenuOpen}>
-          <IconButton
-            size="large"
-            aria-label="account of current user"
-            aria-controls="primary-search-account-menu"
-            aria-haspopup="true"
-            color="inherit"
-          >
-            <AccountCircle />
-          </IconButton>
-          <p>Profile</p>
-        </MenuItem>
-      )}
+      <MenuItem onClick={handleProfileMenuOpen}>
+        <IconButton
+          size="large"
+          aria-label="account of current user"
+          aria-controls="primary-search-account-menu"
+          aria-haspopup="true"
+          color="inherit"
+        >
+          <AccountCircle />
+        </IconButton>
+        <p>Profile</p>
+      </MenuItem>
     </Menu>
   );
 
@@ -218,34 +204,28 @@ export const Navbar = () => {
               </Badge>
             </IconButton>
 
-            {!isUserLoggedIn && (
-              <>
-                <Link to="/signup">
-                  <Button color="inherit" variant="outlined">
-                    Sign UP
-                  </Button>
-                </Link>
-                <Link to="/login">
-                  <Button color="inherit" variant="outlined">
-                    Login
-                  </Button>
-                </Link>
-              </>
-            )}
+            <Link to="/signup">
+              <Button color="inherit" variant="outlined">
+                Sign UP
+              </Button>
+            </Link>
+            <Link to="/login">
+              <Button color="inherit" variant="outlined">
+                Login
+              </Button>
+            </Link>
 
-            {isUserLoggedIn && (
-              <IconButton
-                size="large"
-                edge="end"
-                aria-label="account of current user"
-                aria-controls={menuId}
-                aria-haspopup="true"
-                onClick={handleProfileMenuOpen}
-                color="inherit"
-              >
-                <AccountCircle />
-              </IconButton>
-            )}
+            <IconButton
+              size="large"
+              edge="end"
+              aria-label="account of current user"
+              aria-controls={menuId}
+              aria-haspopup="true"
+              onClick={handleProfileMenuOpen}
+              color="inherit"
+            >
+              <AccountCircle />
+            </IconButton>
           </Box>
           <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
             <IconButton
